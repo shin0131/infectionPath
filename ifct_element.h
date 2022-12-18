@@ -4,6 +4,8 @@
 //
 //  Created by Juyeop Kim on 2022/10/20.
 //
+//  2112392 Á¶½Å¿µ 
+//
 
 #ifndef ifct_element_h
 #define ifct_element_h

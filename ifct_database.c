@@ -4,6 +4,9 @@
 //  Database platform code for storing infest path elements
 //  Created by Juyeop Kim on 2022/10/20.
 //
+//  2112392 Á¶½Å¿µ 
+//
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,10 +15,11 @@
 
 #define LIST_END -1
 
+
 //node definition for linked list
 typedef struct node{
-    int index;      //index of the node
-    void* obj;      //object data
+    int index;          //index of the node
+    void* obj;          //object data
     void* next;         //pointer to the next
     void* prev;         //pointer to the next
 } node_t;
@@ -40,6 +44,7 @@ static node_t* genNode(void)
     
     return ndPtr;
 }
+
 
 static node_t* ifctList(int index)
 {
@@ -72,15 +77,16 @@ static node_t* ifctList(int index)
     return ndPtr;
 }
 
+
 static int updateIndex(void)
 {
     int index=0;
     node_t* ndPtr = list_database;
     
-    while ( ndPtr != NULL )//travel until it is the end node
+    while ( ndPtr != NULL )     //travel until it is the end node
     {
         ndPtr->index = index++;
-        ndPtr = ndPtr->next; //travel once
+        ndPtr = ndPtr->next;    //travel once
     }
     
     return index;
@@ -99,6 +105,7 @@ static int updateIndex(void)
                 3. make the last node's next pointer to point the new node
                 4. update the index
 */
+
 int ifctdb_addTail(void* obj)
 {
     node_t* ndPtr;
@@ -142,11 +149,13 @@ int ifctdb_addTail(void* obj)
 }
 
 
+
 /*
     description : delete data object from the list
     input parameters : index - index'th data to delete
     return value : deletion result (0 - succeeded, -1 - failed)
 */
+
 int ifctdb_deleteData(int index)
 {
     node_t* ndPrevPtr;
@@ -206,6 +215,7 @@ int ifctdb_len(void)
     input parameters : index
     return value : object pointer
 */
+
 void* ifctdb_getData(int index)
 {
     void* obj = NULL;
@@ -223,3 +233,4 @@ void* ifctdb_getData(int index)
     
     return obj;
 }
+

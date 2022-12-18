@@ -4,12 +4,16 @@
 //
 //  Created by Juyeop Kim on 2020/10/20.
 //
+//  2112392 조신영 
+//
+
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
 #include "C:\Users\USER\Desktop\Univ\2022_2-2\전자공학프로그래밍\기말 프로젝트\basecode\ifct_element.h"
+
 
 typedef enum place {
     Seoul,          //0
@@ -101,17 +105,15 @@ char countryName[N_PLACE+1][MAX_PLACENAME] =
 char* ifctele_getPlace 
 
 typedef struct ifs_ele {
-	int index;
-	int age;
-	int time;
-	place_t place[N_HISTORY];
+	int index;                     //number
+	int age;                       //age
+	int time;                      //time
+	place_t place[N_HISTORY];      //place[N_HISTORY]
 	//number -> int
 	//age -> int
 	//infection timing -> int
 	//path before infection -> place_t (enum arrangement (N_HISTORY))
-	
 } ifs_ele_t;
-
 
 
 
@@ -137,9 +139,22 @@ int ifctele_getAge(void* obj)
 }                                            // 나머지 함수들도 이와 유사하게 코딩하면 됨 
 
 
-char* ifctele_getPlaceName(int placeIndex);
-int ifctele_getHistPlaceIndex(void* obj, int index);
-unsigned int ifctele_getinfestedTime(void* obj);
+char* ifctele_getPlaceName(int placeIndex)
+{
+	return countryName[placeIndex];
+}
+
+
+int ifctele_getHistPlaceIndex(void* obj, int index)
+{
+	
+}
+
+
+unsigned int ifctele_getinfestedTime(void* obj)
+{
+	
+}
 
 
 
@@ -147,7 +162,7 @@ void ifcele_printElement(void* obj)
 {
 	ifs_ele_t* Ptr = (ifs_ele_t*)obj;
 	
-	printf("Age : %i\n", ptr-<age);   //print elements
+	printf("Age : %i\n", ptr-<age);          //print elements
 }
 
 
