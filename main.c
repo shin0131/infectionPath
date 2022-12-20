@@ -22,11 +22,18 @@
 #define TIME_HIDE           2
 
 
-int trackInfester(int patient_no, int *detected_time, int *place);
+int trackInfester(int patient_no, int *detected_time, int *place);     //infester 추적하는 함수 
 
+
+// main 함수- 감염병 관리 프로그램 실행 함수 
+   // 1. 특정 환자에 대한 정보 출력
+   // 2. 특정 장소에서 감염이 확인된 환자 관련 정보 출력
+   // 3. 특정 범위의 나이에 해당하는 환자 관련 정보 출력
+   // 4. 감염 경로 및 최초 전파자 추적
+   // 0. 프로그램 종료 
 int main(int argc, const char * argv[]) {
     
-    int menu_selection;
+    int menu_selection;         // menu number 선택 변수 선언 
     void *ifct_element;
     FILE* fp;
     int pIndex, age, time;
@@ -37,14 +44,14 @@ int main(int argc, const char * argv[]) {
     //1-1. FILE pointer open
     if (argc != 2)
     {
-        printf("[ERROR] syntax : infestPath (file path).");
+        printf("[ERROR] syntax : infestPath (file path).");     //error print
         return -1;
     }
     
     fp = fopen(argv[1],"r");
     if (fp == NULL)
     {
-        printf("[ERROR] Failed to open database file!! (%s)\n", argv[1]);
+        printf("[ERROR] Failed to open database file!! (%s)\n", argv[1]);     //error print
         return -1;
     }
     
@@ -56,12 +63,11 @@ int main(int argc, const char * argv[]) {
     FILE* file;
     file = fopen("C:\Users\USER\Desktop\Univ\2022_2-2\전자공학프로그래밍\기말 프로젝트\patientInfo_sample.txt", "r");
     
-    while ( 3 == fscanf(file, "%i %i %i", &pIndex, &age, &time))
+    while ( 3 == fscanf(file, "%i %i %i", &pIndex, &age, &time))     //patient index, age, time 읽어오기 
     {
-    	int i;                                    //
-		for (i=0; i<5; i++)                       //
-    		fscanf(file, "%i", &placeHist[i]); 
-			//
+    	int i;                                     //for문을 위한 i 선언 
+		for (i=0; i<5; i++)                        //place 5개 (환자의 이동경로) 저장 
+    		fscanf(file, "%i", &placeHist[i]);
     		
     	ifct_element = ifctele_genElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY]);
     	
@@ -131,7 +137,8 @@ int main(int argc, const char * argv[]) {
                 
                 for(i=0; i<ifctdb_len(); i++)
                 {
-                	
+                	if (strcmp(place, ifctele_getPlaceName(ifctele_getHistPlaceIndex(ifctdb_getData(i), N_HISTORY -1))) == 0) 
+                		ifctele_printElement(ifctdb_getData(i));
 				}
                 
                 break;
@@ -140,9 +147,16 @@ int main(int argc, const char * argv[]) {
                 int age_min, age_max;     //int 형태 minimum, maximum 나이 변수 선언 
 				
 				printf("Enter the Minimum Age: \n");
-                scanf("%i", &);
+                scanf("%i", &age_min);
                 printf("Enter the Maximum Age: \n");
-                scanf("%i", &);
+                scanf("%i", &age_max);
+                
+                for (i=0; i<ifctdb_len(); i++)
+                {
+                	//age_min 이상, age_max 이하인 범위 내의 환자 정보 print
+                	if (age_min <= ifctele_getAge(ifctdb_getData(i)) && ifctele_getAge(ifctdb_getData(i)) <= age_max)
+                		ifctele_printElement(ifctdb_getData(i));
+				}
                 
                 break;
                 
