@@ -102,7 +102,6 @@ char countryName[N_PLACE+1][MAX_PLACENAME] =
     "Unrecognized"
 };
 
-char* ifctele_getPlace 
 
 typedef struct ifs_ele {           //구조체 형성 
 	int index;                     //number
@@ -121,7 +120,7 @@ typedef struct ifs_ele {           //구조체 형성
 
 // ifctele_genElement
 // input data에 대한 환자의 정보를 저장하는 함수 
-void* ifctele_genElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY]);
+void* ifctele_genElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY])
 {
 	int i;     // for문을 위한 i 선언 
 	ifs_ele_t* ptr;
@@ -144,10 +143,11 @@ void* ifctele_genElement(int index, int age, unsigned int detected_time, int his
 // patient의 나이를 return하는 함수 
 int ifctele_getAge(void* obj)
 {
-	ifs_ele_t* Ptr = (ifs_ele_t*)obj;
+	ifs_ele_t* ptr = (ifs_ele_t*)obj;
 	
 	return ptr->age;
 }
+
 
 // ifctele_getPlaceName
 // placeIndex에 대한 나라의 이름 countryName을 return하는 함수 
@@ -156,8 +156,9 @@ char* ifctele_getPlaceName(int placeIndex)
 	return countryName[placeIndex];
 }
 
+
 // ifctele_getHistPlaceIndex
-//  
+// index에 대한 장소 place[index]를 return하는 함수 
 int ifctele_getHistPlaceIndex(void* obj, int index)
 {
 	ifs_ele_t* ptr = (ifs_ele_t*)obj;
@@ -166,18 +167,33 @@ int ifctele_getHistPlaceIndex(void* obj, int index)
 }
 
 
+// ifctele_getinfestedTime
+// 환자가 감염된 시점을 return하는 함수 
 unsigned int ifctele_getinfestedTime(void* obj)
 {
+	ifs_ele_t* ptr = (ifs_ele_t*)obj;
 	
+	return ptr->time;
 }
 
 
-
+// ifcele_printElement
+// 환자 정보(index, age, time, place)를 print하는 함수 
 void ifcele_printElement(void* obj)
 {
+	int i;     //for문을 위한 i 선언 
 	ifs_ele_t* Ptr = (ifs_ele_t*)obj;
 	
-	printf("Age : %i\n", ptr-<age);          //print elements
+	printf("__________ Prints Patient Information __________\n\n");
+	printf("The Patient Index is %i.\n", ptr->index);     //Index print
+	printf("The Patient Age is %i.\n", ptr->age);         //Age print
+	printf("The Infested Time is %i\n.", ptr->time);      //Time print
+	printf("The Place History is ");                    //Place print
+	for (i=0; i<N_HISTORY; i++)
+	{
+		printf("%s", ifctele_getPlaceName(ptr->place[i]));
+	}
+	printf("\n\n______________________________________________\n");
 }
 
 

@@ -7,12 +7,14 @@
 //  2112392 Á¶½Å¿µ 
 //
 
+
 #ifndef ifct_element_h
 #define ifct_element_h
 
 #define N_PLACE                     40
 #define N_HISTORY                   5
 #define MAX_PLACENAME               100
+
 
 void* ifctele_genElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY]);
 char* ifctele_getPlaceName(int placeIndex);

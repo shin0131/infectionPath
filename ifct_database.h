@@ -7,6 +7,7 @@
 //  2112392 Á¶½Å¿µ 
 //
 
+
 #ifndef ifct_database_h
 #define ifct_database_h
 
