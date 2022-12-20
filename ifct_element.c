@@ -104,7 +104,7 @@ char countryName[N_PLACE+1][MAX_PLACENAME] =
 
 char* ifctele_getPlace 
 
-typedef struct ifs_ele {
+typedef struct ifs_ele {           //구조체 형성 
 	int index;                     //number
 	int age;                       //age
 	int time;                      //time
@@ -116,38 +116,53 @@ typedef struct ifs_ele {
 } ifs_ele_t;
 
 
+// __________________________________________ 함수 정의 __________________________________________
 
+
+// ifctele_genElement
+// input data에 대한 환자의 정보를 저장하는 함수 
 void* ifctele_genElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY]);
 {
+	int i;     // for문을 위한 i 선언 
 	ifs_ele_t* ptr;
 	
-	ptr = malloc();
-	ptr->index = index;         // 구조체를 만들어서 환자 정보를 저장 
-	
+	ptr = malloc(sizeof(ifs_ele_t));     // 구조체를 생성하여 환자 정보를 저장 
+	ptr->index = index;    
+	ptr->age = age;
+	ptr->time = detected_time;
+	for (i=0; i<N_HISTORY; i++)
+	{
+		ptr->place[i] = history_place[i];
+	}
 	//free는 하면 안됨
 	
 	return ptr;
 }
 
 
-
+// ifctele_getAge
+// patient의 나이를 return하는 함수 
 int ifctele_getAge(void* obj)
 {
 	ifs_ele_t* Ptr = (ifs_ele_t*)obj;
 	
 	return ptr->age;
-}                                            // 나머지 함수들도 이와 유사하게 코딩하면 됨 
+}
 
-
+// ifctele_getPlaceName
+// placeIndex에 대한 나라의 이름 countryName을 return하는 함수 
 char* ifctele_getPlaceName(int placeIndex)
 {
 	return countryName[placeIndex];
 }
 
-
+// ifctele_getHistPlaceIndex
+//  
 int ifctele_getHistPlaceIndex(void* obj, int index)
 {
+	ifs_ele_t* ptr = (ifs_ele_t*)obj;
 	
+	return ptr->place[index];
 }
 
 

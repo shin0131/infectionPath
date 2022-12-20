@@ -23,6 +23,7 @@
 
 
 int trackInfester(int patient_no, int *detected_time, int *place);
+
 int main(int argc, const char * argv[]) {
     
     int menu_selection;
@@ -50,10 +51,17 @@ int main(int argc, const char * argv[]) {
     
     #if
     //1-2. loading each patient informations
-    while ( 3 == fscanf("3가지 읽기", 변수들))
+    
+    // patientInfo_sample.txt 파일 읽어오기 
+    FILE* file;
+    file = fopen("C:\Users\USER\Desktop\Univ\2022_2-2\전자공학프로그래밍\기말 프로젝트\patientInfo_sample.txt", "r");
+    
+    while ( 3 == fscanf(file, "%i %i %i", &pIndex, &age, &time))
     {
-    	for ()
-    		fscanf( 5개 읽기) ;
+    	int i;                                    //
+		for (i=0; i<5; i++)                       //
+    		fscanf(file, "%i", &placeHist[i]); 
+			//
     		
     	ifct_element = ifctele_genElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY]);
     	
@@ -64,10 +72,14 @@ int main(int argc, const char * argv[]) {
     	for (5번 반복)
     		printf("%s", ifsele_getPlaceName(placeList[i]));
     	printf("\n");
+    	
+    	ifct_ele = ifctele_genElement(pIndex, age, time, placeHist);
+    	
+    	ifctdb_addTail(ifct_ele);
+    	
 	}
 	#endif
-	
-	ifcele_getElement(...);
+
 	
     
     //1-3. FILE pointer close
@@ -79,15 +91,15 @@ int main(int argc, const char * argv[]) {
     	place1 = 3;
     	place2 = 15;
     	
-    	printf("The first place is %s\n", ifctele_getPlaceName(place1));
-    	printf("The second place is %s\n", ifctele_getPlaceName(place2));
+    	printf("The first place is %s\n\n", ifctele_getPlaceName(place1));
+    	printf("The second place is %s\n\n", ifctele_getPlaceName(place2));
 	}
     
     do {
         printf("\n=============== INFECTION PATH MANAGEMENT PROGRAM (No. of patients : %i) =============\n", ifctdb_len());
         printf("1. Print details about a patient.\n");                      //MENU_PATIENT
-        printf("2. Print list of patients infected at a place.\n");        //MENU_PLACE
-        printf("3. Print list of patients in a range of age.\n");          //MENU_AGE
+        printf("2. Print list of patients infected at a place.\n");         //MENU_PLACE
+        printf("3. Print list of patients in a range of age.\n");           //MENU_AGE
         printf("4. Track the root of the infection\n");                     //MENU_TRACK
         printf("0. Exit.\n");                                               //MENU_EXIT
         printf("=============== ------------------------------------------------------- =============\n\n");
@@ -98,24 +110,44 @@ int main(int argc, const char * argv[]) {
         
         switch(menu_selection)
         {
-            case MENU_EXIT:
+            case MENU_EXIT:          //menu_selection이 0번인 경우 
                 printf("Exiting the program... Bye bye.\n");
                 break;
                 
-            case MENU_PATIENT:
+            case MENU_PATIENT:       //menu_selection이 1번인 경우 
+                printf("Enter the Patient Index: \n");
+                scanf("%i", &pIndex);
+                
+                ifctele_printElement(ifctdb_getData(pIndex));     //printElement 함수 사용 
                 
                 break;
                 
-            case MENU_PLACE:
+            case MENU_PLACE:         //menu_selection이 2번인 경우 
+                int i;                         //for문을 위한 i 선언 
+				char place[MAX_PLACENAME];     //char 형태 장소 변수 선언 
+                
+				printf("Enter the Place: \n");
+                scanf("%s", &place);
+                
+                for(i=0; i<ifctdb_len(); i++)
+                {
+                	
+				}
                 
                 break;
                 
-            case MENU_AGE:
+            case MENU_AGE:           //menu_selection이 3번인 경우 
+                int age_min, age_max;     //int 형태 minimum, maximum 나이 변수 선언 
+				
+				printf("Enter the Minimum Age: \n");
+                scanf("%i", &);
+                printf("Enter the Maximum Age: \n");
+                scanf("%i", &);
                 
                 break;
                 
-            case MENU_TRACK:
-                    
+            case MENU_TRACK:         //menu_selection이 4번인 경우 
+                printf("")
                 break;
                 
             default:
