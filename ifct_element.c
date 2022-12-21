@@ -12,7 +12,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "C:\Users\USER\Desktop\Univ\2022_2-2\전자공학프로그래밍\기말 프로젝트\basecode\ifct_element.h"
+#include "ifct_element.h"
 
 
 typedef enum place {
@@ -182,7 +182,7 @@ unsigned int ifctele_getinfestedTime(void* obj)
 void ifcele_printElement(void* obj)
 {
 	int i;     //for문을 위한 i 선언 
-	ifs_ele_t* Ptr = (ifs_ele_t*)obj;
+	ifs_ele_t* ptr = (ifs_ele_t*)obj;
 	
 	printf("__________ Prints Patient Information __________\n\n");
 	printf("The Patient Index is %i.\n", ptr->index);     //Index print

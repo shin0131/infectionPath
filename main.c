@@ -10,8 +10,8 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "C:\Users\USER\Desktop\Univ\2022_2-2\전자공학프로그래밍\기말 프로젝트\basecode\ifct_element.h"
-#include "C:\Users\USER\Desktop\Univ\2022_2-2\전자공학프로그래밍\기말 프로젝트\basecode\ifct_database.h"
+#include "ifct_element.h"
+#include "ifct_database.h"
 
 #define MENU_PATIENT        1
 #define MENU_PLACE          2
@@ -125,7 +125,7 @@ int main(int argc, const char * argv[]) {
 		for (i=0; i<5; i++)                        //place 5개 (환자의 이동경로) 저장 
     		fscanf(file, "%i", &placeHist[i]);
     		
-    	ifct_element = ifctele_genElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY]);
+    	ifct_element = ifctele_genElement(pIndex, age, time, placeHist);
     	
     	// linked list에 생성된 구조체 저장 : ifctdb_addTail 함수 이용 
     	ifctdb_addTail(ifct_element);
@@ -170,6 +170,20 @@ int main(int argc, const char * argv[]) {
         scanf("%d", &menu_selection);
         fflush(stdin);
         
+        
+        // MENU_PLACE 변수 선언 
+		int i;                         //for문을 위한 i
+		char place[MAX_PLACENAME];     //char 형태 장소 변수
+		
+		// MENU_AGE 변수 선언 
+		int age_min, age_max;         //int 형태 minimum, maximum 나이 변수
+		
+		// MENU_TRACK 변수 선언 
+		int pat_index;                //patient index 입력 받는 변수
+        int infester = -1;            //infester 변수, index -1 
+        int firstInf;                 //최초 전파자 변수
+        
+        
         switch(menu_selection)
         {
             case MENU_EXIT:          //menu_selection이 0번인 경우 
@@ -185,8 +199,6 @@ int main(int argc, const char * argv[]) {
                 break;
                 
             case MENU_PLACE:         //menu_selection이 2번인 경우 
-                int i;                         //for문을 위한 i 선언 
-				char place[MAX_PLACENAME];     //char 형태 장소 변수 선언 
                 
 				printf("\nEnter the Place: ");
                 scanf("%s", &place[MAX_PLACENAME]);
@@ -201,7 +213,6 @@ int main(int argc, const char * argv[]) {
                 break;
                 
             case MENU_AGE:           //menu_selection이 3번인 경우 
-                int age_min, age_max;     //int 형태 minimum, maximum 나이 변수 선언 
 				
 				printf("\nEnter the Minimum Age: ");
                 scanf("%i", &age_min);
@@ -218,10 +229,7 @@ int main(int argc, const char * argv[]) {
                 break;
                 
             case MENU_TRACK:         //menu_selection이 4번인 경우 
-                int pat_index;       //patient index 입력 받는 변수 선언 
-                int infester = -1;   //infester 변수 선언, index -1 
-                int firstInf;        //최초 전파자 변수 선언 
-				
+                
 				printf("\nEnter the Patient Index: ");
                 scanf("%i", &pat_index);
                 

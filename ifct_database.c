@@ -106,6 +106,7 @@ static int updateIndex(void)
                 4. update the index
 */
 
+
 int ifctdb_addTail(void* obj)
 {
     node_t* ndPtr;
@@ -204,6 +205,7 @@ int ifctdb_deleteData(int index)
     description : return the number of data objects in the list
     return value : length
 */
+
 int ifctdb_len(void)
 {
     return list_cnt;

@@ -18,3 +18,4 @@ int ifctdb_len(void);                   //get database length
 void* ifctdb_getData(int index);        //get index'th data
 
 #endif /* ifct_database_h */
+
