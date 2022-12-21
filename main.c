@@ -22,7 +22,11 @@
 #define TIME_HIDE           2
 
 
-int trackInfester(int patient_no, int *detected_time, int *place);     //infester 추적하는 함수 
+// infester 추척하는 함수 정의 
+int trackInfester(int patient_no, int *detected_time, int *place)
+{
+	
+}
 
 
 // main 함수- 감염병 관리 프로그램 실행 함수 
@@ -40,6 +44,7 @@ int main(int argc, const char * argv[]) {
     int placeHist[N_HISTORY];
     
     
+    
     //------------- 1. loading patient info file ------------------------------
     //1-1. FILE pointer open
     if (argc != 2)
@@ -54,6 +59,7 @@ int main(int argc, const char * argv[]) {
         printf("[ERROR] Failed to open database file!! (%s)\n", argv[1]);     //error print
         return -1;
     }
+    
     
     
     #if
@@ -165,6 +171,7 @@ int main(int argc, const char * argv[]) {
             case MENU_TRACK:         //menu_selection이 4번인 경우 
                 int pat_index;       //patient index 입력 받는 변수 선언 
                 int infester = -1;   //infester 변수 선언, index -1 
+                int firstInf;        //최초 전파자 변수 선언 
 				
 				printf("\nEnter the Patient Index: ");
                 scanf("%i", &pat_index);
@@ -186,9 +193,22 @@ int main(int argc, const char * argv[]) {
 				infectTime = ifctele_getinfestedTime(ifct_element);     //감염 시점 저장 
 				int *ptrtime = &infectTime;
 				
-				 
+				// trackInfester 함수를 이용하여 infester 찾기 
+				infester = trackInfester(pat_index, ptrtime, ptrplace);
 				
-				 
+				// 입력된 patient가 최초 감염자인 경우 
+				if (infester = -1) 
+				{
+					firstInf = pat_index;
+					printf("No.%i Patient is the first infector.\n", firstInf);
+				}
+				
+				// 입력된 patient가 최초 감염자가 아닌 경우 
+				else
+				{
+					printf("[No.%i Patient Infection Information]\n - Infester: No.%i Patient\n - Time: %i\n - Place: %s\n", pat_index, infester, )
+				}
+				
                 
                 break;
                 
