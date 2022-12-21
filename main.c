@@ -25,8 +25,59 @@
 // infester 추척하는 함수 정의 
 int trackInfester(int patient_no, int *detected_time, int *place)
 {
+	int i, j;                        //for문을 위한 i, j 선언 
+	int infIndex = -1;               //함수의 return 값인 전파자의 번호 선언, index = -1
+	int infTime = *detected_time;     //감염 날짜 변수 선언 
+	int infPlace = *place;            //감염 장소 변수 선언 
+	int trackNum;                    //추적할 환자의 번호 변수 선언 
+	int trackTime;                   //추적할 감염 시점 변수 선언 
+	int trackPlace1, trackPlace2;    //추적할 감염 장소 변수 선언 (발병일, 발병 하루 전) 
 	
-}
+	// data의 환자들과 시간, 장소 비교 (입력된 환자 자신 제외) 
+	for (i=0; i<ifctdb_len(); i++)
+	{
+		if (patient_no != i)
+		{
+			trackNum = i;
+			
+			trackTime = ifctele_getinfestedTime(ifctdb_getData(i));     // 시점 -> ifctele_getinfestedTime 함수 사용 
+			
+			// 장소 -> ifctele_getHistPlaceIndex 함수 사용 
+			trackPlace1 = ifctele_getHistPlaceIndex(ifctdb_getData(i), N_HISTORY - 1);
+			trackPlace2 = ifctele_getHistPlaceIndex(ifctdb_getData(i), N_HISTORY - 2);
+			
+			// 전염 가능 시기의 시간, 장소 확인 
+			for (j=0; j<3; j++)
+			{
+				if ((place[j] == trackPlace1) && (detected_time - 4 + j == trackTime))     // 발병 당일 
+				{
+					if (infTime > trackTime)
+					{
+						infIndex = trackNum;
+						infTime = trackTime;
+						infPlace = trackPlace1;
+					}
+				}
+				
+				if ((place[j] == trackPlace2) && (detected_time - 4 + j == trackTime - 1))      // 발병 하루 전 
+				{
+					if (infTime > trackTime)
+					{
+						infIndex = trackNum;
+						infTime = trackTime;
+						infPlace = trackPlace2;
+					}
+				}
+			}
+			
+		}
+		
+	}
+	
+	return infIndex;     // 전파자의 번호 return 
+	
+} // trackInfester 함수 
+
 
 
 // main 함수- 감염병 관리 프로그램 실행 함수 
@@ -62,12 +113,11 @@ int main(int argc, const char * argv[]) {
     
     
     
-    #if
     //1-2. loading each patient informations
     
     // patientInfo_sample.txt 파일 읽어오기 
     FILE* file;
-    file = fopen("C:\Users\USER\Desktop\Univ\2022_2-2\전자공학프로그래밍\기말 프로젝트\patientInfo_sample.txt", "r");
+    file = fopen("patientInfo_sample.txt", "r");
     
     while ( 3 == fscanf(file, "%i %i %i", &pIndex, &age, &time))     //patient index, age, time 읽어오기 
     {
@@ -91,7 +141,6 @@ int main(int argc, const char * argv[]) {
     	ifctdb_addTail(ifct_ele);
     	*/
 	}
-	#endif
 
 	
     
@@ -140,7 +189,7 @@ int main(int argc, const char * argv[]) {
 				char place[MAX_PLACENAME];     //char 형태 장소 변수 선언 
                 
 				printf("\nEnter the Place: ");
-                scanf("%s", &place);
+                scanf("%s", &place[MAX_PLACENAME]);
                 
                 for(i=0; i<ifctdb_len(); i++)
                 {
@@ -206,10 +255,11 @@ int main(int argc, const char * argv[]) {
 				// 입력된 patient가 최초 감염자가 아닌 경우 
 				else
 				{
-					printf("[No.%i Patient Infection Information]\n - Infester: No.%i Patient\n - Time: %i\n - Place: %s\n", pat_index, infester, )
+					printf("[No.%i Patient Infection Information]\n - Infester: No.%i Patient\n - Time: %i\n - Place: %s\n\n",
+					 pat_index, infester, infectTime, checkPlace[infester]);
+					printf("The First Infester is No.%i Patient.\n", firstInf);
 				}
 				
-                
                 break;
                 
             default:
@@ -222,3 +272,4 @@ int main(int argc, const char * argv[]) {
     
     return 0;
 }
+
