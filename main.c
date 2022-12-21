@@ -74,6 +74,7 @@ int main(int argc, const char * argv[]) {
     	// linked list에 생성된 구조체 저장 : ifctdb_addTail 함수 이용 
     	ifctdb_addTail(ifct_element);
     	
+    	/*
     	printf("%i 번째 환자 감염 경로 : ", 환자 번호);
     	for (5번 반복)
     		printf("%s", ifsele_getPlaceName(placeList[i]));
@@ -82,7 +83,7 @@ int main(int argc, const char * argv[]) {
     	ifct_ele = ifctele_genElement(pIndex, age, time, placeHist);
     	
     	ifctdb_addTail(ifct_ele);
-    	
+    	*/
 	}
 	#endif
 
@@ -121,7 +122,7 @@ int main(int argc, const char * argv[]) {
                 break;
                 
             case MENU_PATIENT:       //menu_selection이 1번인 경우 
-                printf("Enter the Patient Index: \n");
+                printf("\nEnter the Patient Index: ");
                 scanf("%i", &pIndex);
                 
                 ifctele_printElement(ifctdb_getData(pIndex));     //printElement 함수 사용 
@@ -132,11 +133,12 @@ int main(int argc, const char * argv[]) {
                 int i;                         //for문을 위한 i 선언 
 				char place[MAX_PLACENAME];     //char 형태 장소 변수 선언 
                 
-				printf("Enter the Place: \n");
+				printf("\nEnter the Place: ");
                 scanf("%s", &place);
                 
                 for(i=0; i<ifctdb_len(); i++)
                 {
+                	//문자열 비교 함수 strcmp 사용 
                 	if (strcmp(place, ifctele_getPlaceName(ifctele_getHistPlaceIndex(ifctdb_getData(i), N_HISTORY -1))) == 0) 
                 		ifctele_printElement(ifctdb_getData(i));
 				}
@@ -146,9 +148,9 @@ int main(int argc, const char * argv[]) {
             case MENU_AGE:           //menu_selection이 3번인 경우 
                 int age_min, age_max;     //int 형태 minimum, maximum 나이 변수 선언 
 				
-				printf("Enter the Minimum Age: \n");
+				printf("\nEnter the Minimum Age: ");
                 scanf("%i", &age_min);
-                printf("Enter the Maximum Age: \n");
+                printf("\nEnter the Maximum Age: ");
                 scanf("%i", &age_max);
                 
                 for (i=0; i<ifctdb_len(); i++)
@@ -161,11 +163,37 @@ int main(int argc, const char * argv[]) {
                 break;
                 
             case MENU_TRACK:         //menu_selection이 4번인 경우 
-                printf("")
+                int pat_index;       //patient index 입력 받는 변수 선언 
+                int infester = -1;   //infester 변수 선언, index -1 
+				
+				printf("\nEnter the Patient Index: ");
+                scanf("%i", &pat_index);
+                
+                ifct_element = ifctdb_getData(pat_index);
+                
+                // 장소를 통한 전파자 추적
+				int i;                         //for문을 위한 i 선언 
+				int checkPlace[N_HISTORY];     //장소를 확인하는 배열 선언 
+				int *ptrplace = &checkPlace[N_HISTORY];
+				
+				for (i=0; i<N_HISTORY; i++)
+				{
+					checkPlace[i] = ifctele_getHistPlaceIndex(ifct_element, i);
+				} 
+				
+				// 시간(날짜)을 통한 전파자 추적
+				int infectTime;                                         //감염 시점 변수 선언 
+				infectTime = ifctele_getinfestedTime(ifct_element);     //감염 시점 저장 
+				int *ptrtime = &infectTime;
+				
+				 
+				
+				 
+                
                 break;
                 
             default:
-                printf("[ERROR Wrong menu selection! (%i), please choose between 0 ~ 4\n", menu_selection);
+                printf("[ERROR Wrong menu selection! (%i), please choose between 0 ~ 4\n\n", menu_selection);
                 break;
         }
     
